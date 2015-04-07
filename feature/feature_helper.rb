@@ -1,5 +1,4 @@
 require 'open3'
-require 'monitise_5_etl_migration_configurator'
 
 # Add the bin directory, to allow testing of gem executables as if the gem is
 # already installed.
