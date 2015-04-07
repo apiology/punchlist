@@ -6,9 +6,10 @@ describe 'bigfiles' do
       .to eq("USAGE: punchlist\n")
   end
 
-  # no_files three_files four_files swift_and_ruby_files
-  # swift_zorb_and_ruby_files
-  %w(no_files).each do |type|
+  # "pis" are "punchlist items" non_source_file mixed_set
+  # more_than_once_source_file three_files four_files
+  # swift_and_ruby_files swift_zorb_and_ruby_files
+  %w(no_files source_file_with_no_items).each do |type|
     it "handles #{type} case" do
       expect(exec_io "cd feature/samples/#{type} &&" \
                      'RUBYLIB=`pwd`/../../lib:"$RUBYLIB" punchlist')
