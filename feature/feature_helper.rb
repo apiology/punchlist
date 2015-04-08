@@ -3,7 +3,7 @@ require 'open3'
 # Add the bin directory, to allow testing of gem executables as if the gem is
 # already installed.
 root_dir = RSpec::Core::RubyProject.root
-exec_dir = root_dir.join('bin')
+exec_dir = File.join(root_dir, 'bin')
 ENV['PATH'] = [exec_dir, ENV['PATH']].join(File::PATH_SEPARATOR)
 
 # Courtesy of:
