@@ -1,3 +1,6 @@
+# XXX: need to include BUG in list
+# XXX: need to include BUG in my rubocop config
+# BUG need to fix the fact that we create blank lines on files with no issues
 module Punchlist
   # Counts the number of 'todo' comments in your code.
   class Punchlist
@@ -30,10 +33,11 @@ module Punchlist
     end
 
     def analyze_files
+      all_output = []
       source_files.each do |filename|
-        output = look_for_punchlist_items(filename)
-        @outputter.puts render(output)
+        all_output.concat(look_for_punchlist_items(filename))
       end
+      @outputter.print render(all_output)
     end
 
     def source_files
@@ -57,9 +61,10 @@ module Punchlist
     end
 
     def render(output)
-      output.map do |filename, line_num, line|
+      lines = output.map do |filename, line_num, line|
         "#{filename}:#{line_num}: #{line}"
-      end.join("\n")
+      end
+      lines.join
     end
   end
 end

@@ -32,9 +32,7 @@ describe Punchlist::Punchlist do
       expect(globber).to(receive(:glob))
         .with(expected_glob)
         .and_return(files_found)
-      if files_found.count > 0
-        expect(outputter).to receive(:puts).with(expected_output)
-      end
+      expect(outputter).to receive(:print).with(expected_output)
       file_contents.each do |filename, contents|
         expect(file_opener).to(receive(:open)).with(filename, 'r')
           .and_yield(StringIO.new(contents))
@@ -47,6 +45,7 @@ describe Punchlist::Punchlist do
         subject(:file_contents) do
           {}
         end
+        subject(:expected_output) { '' }
         it 'runs' do
           punchlist.run
         end
@@ -76,6 +75,22 @@ describe Punchlist::Punchlist do
             {
               'bar.scala' => "#\n#\n#\n#\n" \
                              "println('zing') # XXX change to foo\n"
+            }
+          end
+          it 'runs' do
+            punchlist.run
+          end
+        end
+
+        context 'a scala file with no entries' do
+          subject(:expected_output) do
+            ''
+          end
+          subject(:file_contents) do
+            {
+              'bar.scala' => "#\n#\n#\n#\n" \
+                             "println('zing') #  change to foo\n",
+              'foo.rb' => '',
             }
           end
           it 'runs' do
