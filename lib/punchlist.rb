@@ -19,10 +19,7 @@ module Punchlist
         return 0 # XXX: need to vary return based on good or bad arguments
       end
 
-      source_files.each do |filename|
-        output = look_for_punchlist_items(filename)
-        @outputter.puts render(output)
-      end
+      analyze_files
 
       0
     end
@@ -30,6 +27,13 @@ module Punchlist
     def source_files_glob
       @source_files_glob ||=
         '{app,lib,test,spec,feature}/**/*.{rb,swift,scala,js,cpp,c,java,py}'
+    end
+
+    def analyze_files
+      source_files.each do |filename|
+        output = look_for_punchlist_items(filename)
+        @outputter.puts render(output)
+      end
     end
 
     def source_files
