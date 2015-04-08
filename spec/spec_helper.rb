@@ -4,7 +4,7 @@ SimpleCov.start do
   add_filter 'vendor'
 end
 SimpleCov.refuse_coverage_drop
-require 'yourmodulehere'
+require 'punchlist'
 
 RSpec.configure do |config|
   config.filter_run_excluding :wip

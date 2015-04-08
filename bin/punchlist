@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
-puts "USAGE: punchlist\n" if ARGV[0] == '-h'
+require_relative '../lib/punchlist'
+
+Punchlist::Punchlist.new(ARGV).run
