@@ -12,20 +12,24 @@ module Punchlist
     end
 
     def run
-      # if @args[0] == '-h' XXX
-      if @args[0]
+      if @args[0] == '--glob'
+        @source_files_glob = @args[1]
+      elsif @args[0]
         @outputter.puts "USAGE: punchlist\n"
-      #   exit 0 XXX
-      else
-        source_files.each do |filename|
-          output = look_for_punchlist_items(filename)
-          @outputter.puts render(output)
-        end
+        return 0 # XXX: need to vary return based on good or bad arguments
       end
+
+      source_files.each do |filename|
+        output = look_for_punchlist_items(filename)
+        @outputter.puts render(output)
+      end
+
+      0
     end
 
     def source_files_glob
-      '{app,lib,test,spec,feature}/**/*.{rb,swift,scala,js,cpp,c,java,py}'
+      @source_files_glob ||=
+        '{app,lib,test,spec,feature}/**/*.{rb,swift,scala,js,cpp,c,java,py}'
     end
 
     def source_files

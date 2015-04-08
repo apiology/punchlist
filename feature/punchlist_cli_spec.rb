@@ -1,11 +1,6 @@
 require_relative 'feature_helper'
 
 describe 'bigfiles' do
-  it 'starts up with no arguments' do
-    expect(exec_io 'punchlist -h')
-      .to eq("USAGE: punchlist\n")
-  end
-
   # "pis" are "punchlist items"
   #
   # TODO: mixed_set
@@ -26,4 +21,31 @@ describe 'bigfiles' do
         .to eq(IO.read("feature/expected/#{type}_results.txt"))
     end
   end
+
+  %w(scala_file_to_be_ignored).each do |type|
+    it "handles #{type} case with a special glob" do
+      expect(exec_io "cd feature/samples/#{type} &&" \
+                     'RUBYLIB=`pwd`/../../lib:"$RUBYLIB" ' \
+                     "punchlist --glob '{app,lib,test,spec,feature}/**/*." \
+                     "{rb,swift,cpp,c,java,py}'")
+        .to eq(IO.read("feature/expected/#{type}_results.txt"))
+    end
+  end
+
+  it 'starts up with short help argument' do
+    expect(exec_io 'punchlist -h')
+      .to eq("USAGE: punchlist\n")
+  end
+
+  it 'starts up with long help argument' do
+    expect(exec_io 'punchlist --help')
+      .to eq("USAGE: punchlist\n")
+  end
+
+  it 'starts up with invalid argument' do
+    expect(exec_io 'punchlist --blah')
+      .to eq("USAGE: punchlist\n")
+  end
+
+  # TODO: handle passing in different annotation comments
 end
