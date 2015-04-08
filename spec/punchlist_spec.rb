@@ -3,11 +3,12 @@ require 'spec_helper'
 require 'punchlist'
 
 describe Punchlist::Punchlist do
-  let_double :outputter, :globber
+  let_double :outputter, :globber, :file_opener
   subject(:punchlist) do
     Punchlist::Punchlist.new(args,
                              outputter: outputter,
-                             globber: globber)
+                             globber: globber,
+                             file_opener: file_opener)
   end
 
   context 'with help argument' do
@@ -23,7 +24,8 @@ describe Punchlist::Punchlist do
   context 'with real arguments' do
     before(:each) do
       expect(globber).to(receive(:glob))
-        .with('{app,lib,test,spec,feature}/**/*.{rb,swift,cpp,c,java,py}')
+        .with('{app,lib,test,spec,feature}/**/' \
+              '*.{rb,swift,scala,js,cpp,c,java,py}')
         .and_return(files_found)
     end
 
@@ -36,15 +38,45 @@ describe Punchlist::Punchlist do
         end
       end
 
-      context 'and one source file found' do
+      context 'and we found' do
         before(:each) do
           expect(outputter).to receive(:puts).with(expected_output)
+          file_contents.each do |filename, contents|
+            expect(file_opener).to(receive(:open)).with(filename, 'r')
+              .and_yield(StringIO.new(contents))
+          end
         end
 
-        subject(:expected_output) { "foo.rb:3: puts 'foo' # XXX change to bar" }
-        subject(:files_found) { ['foo.rb'] }
-        it 'runs' do
-          punchlist.run
+        context 'a ruby file' do
+          subject(:expected_output) do
+            "foo.rb:3: puts 'foo' # XXX change to bar\n"
+          end
+          subject(:files_found) { ['foo.rb'] }
+          subject(:file_contents) do
+            {
+              'foo.rb' => "#\n#\n" \
+                          "puts 'foo' # XXX change to bar\n"
+            }
+          end
+          it 'runs' do
+            punchlist.run
+          end
+        end
+
+        context 'a scala file' do
+          subject(:expected_output) do
+            "bar.scala:5: println('zing') # XXX change to foo\n"
+          end
+          subject(:files_found) { ['bar.scala'] }
+          subject(:file_contents) do
+            {
+              'bar.scala' => "#\n#\n#\n#\n" \
+                             "println('zing') # XXX change to foo\n"
+            }
+          end
+          it 'runs' do
+            punchlist.run
+          end
         end
       end
     end

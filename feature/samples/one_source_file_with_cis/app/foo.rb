@@ -1,3 +1,3 @@
 #!/usr/bin/env ruby
 
-puts 'foo' # XXX change to bar
+puts 'foo' # XXX: change to bar
