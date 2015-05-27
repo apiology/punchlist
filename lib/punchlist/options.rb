@@ -4,8 +4,7 @@ module Punchlist
   class Options
     attr_reader :default_punchlist_line_regexp
 
-    def initialize(default_punchlist_line_regexp)
-      @default_punchlist_line_regexp = default_punchlist_line_regexp
+    def initialize
     end
 
     def setup_options(opts)

@@ -5,11 +5,13 @@ require 'punchlist'
 describe Punchlist::Punchlist do
   let_double :outputter, :globber, :file_opener, :exiter, :options_parser
   subject(:punchlist) do
-    Punchlist::Punchlist.new(outputter: outputter,
+    Punchlist::Punchlist.new(args,
+                             outputter: outputter,
                              globber: globber,
                              file_opener: file_opener,
                              options_parser: options_parser)
   end
+  subject(:args) { [] }
 
   context 'with real arguments' do
     subject(:options) { {} }

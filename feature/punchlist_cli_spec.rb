@@ -33,8 +33,11 @@ describe 'bigfiles' do
   end
 
   EXPECTED_USAGE =
-    "USAGE: punchlist\n" \
-    '--glob blah blah blah'
+    "Usage: punchlist [options]\n"\
+    '    -g, --glob g                     ' \
+    "Filename glob to identify source files\n"\
+    '    -r, --regexp r                   ' \
+    "Regexp to trigger on - default is XXX|TODO\n"
 
   it 'starts up with short help argument' do
     expect(exec_io 'punchlist -h')
@@ -48,7 +51,7 @@ describe 'bigfiles' do
 
   it 'starts up with invalid argument' do
     expect(exec_io 'punchlist --blah')
-      .to eq(EXPECTED_USAGE)
+      .to match(/invalid option/)
   end
 
   # TODO: handle passing in different annotation comments

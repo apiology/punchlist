@@ -6,10 +6,12 @@ require_relative 'punchlist/options'
 module Punchlist
   # Counts the number of 'todo' comments in your code.
   class Punchlist
-    def initialize(outputter: STDOUT,
+    def initialize(args,
+                   outputter: STDOUT,
                    globber: Dir,
                    file_opener: File,
-                   options_parser: Options.new(default_punchlist_line_regexp))
+                   options_parser: Options.new)
+      @args = args
       @outputter = outputter
       @globber = globber
       @file_opener = file_opener
