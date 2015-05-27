@@ -3,13 +3,12 @@ require 'spec_helper'
 require 'punchlist'
 
 describe Punchlist::Punchlist do
-  let_double :outputter, :globber, :file_opener, :exiter, :options_parser
+  let_double :outputter, :globber, :file_opener, :exiter
   subject(:punchlist) do
     Punchlist::Punchlist.new(args,
                              outputter: outputter,
                              globber: globber,
-                             file_opener: file_opener,
-                             options_parser: options_parser)
+                             file_opener: file_opener)
   end
   subject(:args) { [] }
 
@@ -25,7 +24,6 @@ describe Punchlist::Punchlist do
         .with(expected_glob)
         .and_return(files_found)
       expect(outputter).to receive(:print).with(expected_output)
-      expect(options_parser).to receive(:parse_options).and_return(options)
       file_contents.each do |filename, contents|
         expect(file_opener).to(receive(:open)).with(filename, 'r')
           .and_yield(StringIO.new(contents))

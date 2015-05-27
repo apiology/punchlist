@@ -10,7 +10,7 @@ module Punchlist
                    outputter: STDOUT,
                    globber: Dir,
                    file_opener: File,
-                   options_parser: Options.new)
+                   options_parser: Options.new(args))
       @args = args
       @outputter = outputter
       @globber = globber

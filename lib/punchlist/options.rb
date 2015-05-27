@@ -4,7 +4,8 @@ module Punchlist
   class Options
     attr_reader :default_punchlist_line_regexp
 
-    def initialize
+    def initialize(args)
+      @args = args
     end
 
     def setup_options(opts)
@@ -25,7 +26,7 @@ module Punchlist
       options = nil
       OptionParser.new do |opts|
         options = setup_options(opts)
-      end.parse!
+      end.parse!(@args)
       options
     end
   end
