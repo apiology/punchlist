@@ -1,5 +1,5 @@
 # Counts the number of 'todo' comments in your code ('Comment
 # annotations').
 module Punchlist
-  VERSION = '0.0.2'
+  VERSION = '1.0.0'
 end
