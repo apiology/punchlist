@@ -3,26 +3,16 @@ require 'spec_helper'
 require 'punchlist'
 
 describe Punchlist::Punchlist do
-  let_double :outputter, :globber, :file_opener, :exiter
+  let_double :outputter, :globber, :file_opener, :exiter, :options_parser
   subject(:punchlist) do
-    Punchlist::Punchlist.new(args,
-                             outputter: outputter,
+    Punchlist::Punchlist.new(outputter: outputter,
                              globber: globber,
-                             file_opener: file_opener)
-  end
-
-  context 'with help argument' do
-    subject(:args) { ['-h'] }
-    before(:each) do
-      expect(outputter).to receive(:puts).with("USAGE: punchlist\n")
-    end
-
-    it 'gives' do
-      punchlist.run
-    end
+                             file_opener: file_opener,
+                             options_parser: options_parser)
   end
 
   context 'with real arguments' do
+    subject(:options) { {} }
     subject(:files_found) { file_contents.keys }
     subject(:expected_glob) do
       '{app,lib,test,spec,feature}/**/' \
@@ -33,6 +23,7 @@ describe Punchlist::Punchlist do
         .with(expected_glob)
         .and_return(files_found)
       expect(outputter).to receive(:print).with(expected_output)
+      expect(options_parser).to receive(:parse_options).and_return(options)
       file_contents.each do |filename, contents|
         expect(file_opener).to(receive(:open)).with(filename, 'r')
           .and_yield(StringIO.new(contents))
@@ -109,6 +100,7 @@ describe Punchlist::Punchlist do
           subject(:expected_glob) do
             '**/*.rb'
           end
+          subject(:options) { { glob: expected_glob } }
           subject(:file_contents) do
             {
               'foo.rb' => "#\n#\n" \

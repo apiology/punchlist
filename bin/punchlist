@@ -2,4 +2,4 @@
 
 require_relative '../lib/punchlist'
 
-Punchlist::Punchlist.new(ARGV).run
+Punchlist::Punchlist.new.run

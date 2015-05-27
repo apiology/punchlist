@@ -1,26 +1,23 @@
+require_relative 'punchlist/options'
+
 # XXX: need to include BUG in list
 # XXX: need to include BUG in my rubocop config
 # BUG need to fix the fact that we create blank lines on files with no issues
 module Punchlist
   # Counts the number of 'todo' comments in your code.
   class Punchlist
-    def initialize(args,
-                   outputter: STDOUT,
+    def initialize(outputter: STDOUT,
                    globber: Dir,
-                   file_opener: File)
-      @args = args
+                   file_opener: File,
+                   options_parser: Options.new(default_punchlist_line_regexp))
       @outputter = outputter
       @globber = globber
       @file_opener = file_opener
+      @options_parser = options_parser
     end
 
     def run
-      if @args[0] == '--glob'
-        @source_files_glob = @args[1]
-      elsif @args[0]
-        @outputter.puts "USAGE: punchlist\n"
-        return 0 # XXX: need to vary return based on good or bad arguments
-      end
+      @options = @options_parser.parse_options
 
       analyze_files
 
@@ -28,7 +25,7 @@ module Punchlist
     end
 
     def source_files_glob
-      @source_files_glob ||=
+      @options[:glob] ||
         '{app,lib,test,spec,feature}/**/*.{rb,swift,scala,js,cpp,c,java,py}'
     end
 
@@ -44,8 +41,19 @@ module Punchlist
       @globber.glob(source_files_glob)
     end
 
-    def punchlist_line_regexp
+    def default_punchlist_line_regexp
       /XXX|TODO/
+    end
+
+    def punchlist_line_regexp
+      return @regexp if @regexp
+
+      regexp_string = @options[:regexp]
+      if regexp_string
+        @regexp = Regexp.new(regexp_string)
+      else
+        default_punchlist_line_regexp
+      end
     end
 
     def look_for_punchlist_items(filename)

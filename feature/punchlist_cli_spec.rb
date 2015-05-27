@@ -32,19 +32,23 @@ describe 'bigfiles' do
     end
   end
 
+  EXPECTED_USAGE =
+    "USAGE: punchlist\n" \
+    '--glob blah blah blah'
+
   it 'starts up with short help argument' do
     expect(exec_io 'punchlist -h')
-      .to eq("USAGE: punchlist\n")
+      .to eq(EXPECTED_USAGE)
   end
 
   it 'starts up with long help argument' do
     expect(exec_io 'punchlist --help')
-      .to eq("USAGE: punchlist\n")
+      .to eq(EXPECTED_USAGE)
   end
 
   it 'starts up with invalid argument' do
     expect(exec_io 'punchlist --blah')
-      .to eq("USAGE: punchlist\n")
+      .to eq(EXPECTED_USAGE)
   end
 
   # TODO: handle passing in different annotation comments
