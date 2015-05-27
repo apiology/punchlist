@@ -13,7 +13,6 @@ describe Punchlist::Punchlist do
   subject(:args) { [] }
 
   context 'with real arguments' do
-    subject(:options) { {} }
     subject(:files_found) { file_contents.keys }
     subject(:expected_glob) do
       '{app,lib,test,spec,feature}/**/' \
@@ -100,7 +99,6 @@ describe Punchlist::Punchlist do
           subject(:expected_glob) do
             '**/*.rb'
           end
-          subject(:options) { { glob: expected_glob } }
           subject(:file_contents) do
             {
               'foo.rb' => "#\n#\n" \
@@ -108,6 +106,30 @@ describe Punchlist::Punchlist do
             }
           end
           subject(:args) { ['--glob', '**/*.rb'] }
+
+          it 'runs' do
+            punchlist.run
+          end
+        end
+      end
+    end
+
+    context 'with regexp argument adding something' do
+      context 'and we found' do
+        context 'a ruby and scala file' do
+          subject(:expected_output) do
+            "foo.rb:3: puts 'foo' # FUTURE change to bar\n"
+          end
+          subject(:expected_glob) do
+            '**/*.rb'
+          end
+          subject(:file_contents) do
+            {
+              'foo.rb' => "#\n#\n" \
+                          "puts 'foo' # FUTURE change to bar\n"
+            }
+          end
+          subject(:args) { ['--glob', '**/*.rb', '--regexp', 'FUTURE'] }
 
           it 'runs' do
             punchlist.run
