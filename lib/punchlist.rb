@@ -8,14 +8,14 @@ module Punchlist
   class Punchlist
     def initialize(args,
                    outputter: STDOUT,
-                   globber: Dir,
                    file_opener: File,
-                   options_parser: Options.new(args))
+                   options_parser: Options.new(args),
+                   source_file_globber: SourceFinder::SourceFileGlobber.new)
       @args = args
       @outputter = outputter
-      @globber = globber
       @file_opener = file_opener
       @options_parser = options_parser
+      @source_file_globber = source_file_globber
     end
 
     def run
@@ -24,11 +24,6 @@ module Punchlist
       analyze_files
 
       0
-    end
-
-    def source_files_glob
-      @options[:glob] ||
-        '{app,lib,test,spec,feature}/**/*.{rb,swift,scala,js,cpp,c,java,py}'
     end
 
     def analyze_files
@@ -40,7 +35,13 @@ module Punchlist
     end
 
     def source_files
-      @globber.glob(source_files_glob)
+      if @options[:glob]
+        @source_file_globber.source_files_glob = @options[:glob]
+      end
+      if @options[:exclude]
+        @source_file_globber.source_files_exclude_glob = @options[:exclude]
+      end
+      @source_file_globber.source_files
     end
 
     def default_punchlist_line_regexp

@@ -1,18 +1,15 @@
 require 'optparse'
+require 'source_finder/option_parser'
 
 module Punchlist
   # Parse command line options
   class Options
     attr_reader :default_punchlist_line_regexp
 
-    def initialize(args)
+    def initialize(args,
+                   source_finder_option_parser: SourceFinder::OptionParser.new)
       @args = args
-    end
-
-    def parse_glob(opts, options)
-      opts.on('-g', '--glob g', 'Filename glob to identify source files') do |v|
-        options[:glob] = v
-      end
+      @source_finder_option_parser = source_finder_option_parser
     end
 
     def parse_regexp(opts, options)
@@ -26,7 +23,7 @@ module Punchlist
     def setup_options(opts)
       options = {}
       opts.banner = 'Usage: punchlist [options]'
-      parse_glob(opts, options)
+      @source_finder_option_parser.add_options(opts, options)
       parse_regexp(opts, options)
       options
     end
