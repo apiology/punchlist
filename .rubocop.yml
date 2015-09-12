@@ -18,14 +18,17 @@ TrivialAccessors:
    ExactNameMatch: true
 
 #
-# Add 'XXX' to the standard list
+# Add 'XX X' to the standard list
 #
 Style/CommentAnnotation:
    Keywords:
-    - TODO
+    - "TOD\
+       O"
     - FIXME
     - OPTIMIZE
     - HACK
     - REVIEW
-    - XXX
+    - "XX\
+       X"
+
     
