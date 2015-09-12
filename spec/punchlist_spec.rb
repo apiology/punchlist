@@ -21,12 +21,14 @@ describe Punchlist::Punchlist do
     subject(:expected_exclude_glob) do
       nil
     end
-
-    before(:each) do
+    def expect_globs_assigned
       allow(source_file_globber).to(receive(:source_files_glob=))
         .with(expected_glob)
       allow(source_file_globber).to(receive(:source_files_exclude_glob=))
         .with(expected_exclude_glob)
+    end
+    before(:each) do
+      expect_globs_assigned
       allow(source_file_globber).to(receive(:source_files))
         .and_return(files_found)
       expect(outputter).to receive(:print).with(expected_output)
@@ -127,51 +129,24 @@ describe Punchlist::Punchlist do
           subject(:expected_output) do
             "foo.rb:3: puts 'foo' # FUTURE change to bar\n"
           end
-          subject(:expected_glob) do
-            '**/*.rb'
-          end
+          subject(:expected_glob) { '**/*.rb' }
           subject(:file_contents) do
             {
               'foo.rb' => "#\n#\n" \
                           "puts 'foo' # FUTURE change to bar\n"
             }
           end
-          subject(:args) { ['--glob', '**/*.rb', '--regexp', 'FUTURE'] }
-
-          it 'runs' do
-            punchlist.run
+          context 'and no exclusions' do
+            subject(:args) { ['--glob', '**/*.rb', '--regexp', 'FUTURE'] }
+            it('runs') { punchlist.run }
           end
-        end
-      end
-    end
-
-    context 'with regexp argument excluding something' do
-      context 'and we found' do
-        context 'a ruby and scala file' do
-          subject(:expected_output) do
-            "foo.rb:3: puts 'foo' # FUTURE change to bar\n"
-          end
-          subject(:expected_glob) do
-            '**/*.rb'
-          end
-          subject(:expected_exclude_glob) do
-            'lib/foo/baz.rb'
-          end
-          subject(:file_contents) do
-            {
-              'foo.rb' => "#\n#\n" \
-                          "puts 'foo' # FUTURE change to bar\n"
-            }
-          end
-
-          subject(:args) do
-            ['--glob', '**/*.rb',
-             '--regexp', 'FUTURE',
-             '--exclude-glob', 'lib/foo/baz.rb']
-          end
-
-          it 'runs' do
-            punchlist.run
+          context 'with exclusions' do
+            subject(:args) do
+              ['--glob', '**/*.rb', '--regexp', 'FUTURE',
+               '--exclude-glob', 'lib/foo/baz.rb']
+            end
+            subject(:expected_exclude_glob) { 'lib/foo/baz.rb' }
+            it('runs') { punchlist.run }
           end
         end
       end
