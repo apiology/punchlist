@@ -44,10 +44,6 @@ module Punchlist
       @source_file_globber.source_files_arr
     end
 
-    def default_punchlist_line_regexp
-      /XXX|TODO/
-    end
-
     def punchlist_line_regexp
       return @regexp if @regexp
 
@@ -55,7 +51,7 @@ module Punchlist
       if regexp_string
         @regexp = Regexp.new(regexp_string)
       else
-        default_punchlist_line_regexp
+        Options.default_punchlist_line_regexp
       end
     end
 
