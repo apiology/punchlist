@@ -41,7 +41,7 @@ module Punchlist
       if @options[:exclude]
         @source_file_globber.source_files_exclude_glob = @options[:exclude]
       end
-      @source_file_globber.source_files
+      @source_file_globber.source_files_arr
     end
 
     def default_punchlist_line_regexp

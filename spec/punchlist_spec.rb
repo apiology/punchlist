@@ -29,7 +29,7 @@ describe Punchlist::Punchlist do
     end
     before(:each) do
       expect_globs_assigned
-      allow(source_file_globber).to(receive(:source_files))
+      allow(source_file_globber).to(receive(:source_files_arr))
         .and_return(files_found)
       expect(outputter).to receive(:print).with(expected_output)
       file_contents.each do |filename, contents|
