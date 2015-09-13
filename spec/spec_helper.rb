@@ -11,6 +11,9 @@ RSpec.configure do |config|
   config.order = 'random'
   config.alias_it_should_behave_like_to :has_behavior
   config.alias_it_should_behave_like_to :it_has_behavior, 'has behavior:'
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
 end
 
 def let_double(*doubles)
