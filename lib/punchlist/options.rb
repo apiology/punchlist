@@ -13,7 +13,7 @@ module Punchlist
     end
 
     def self.default_punchlist_line_regexp_string
-      'XXX|TODO|FIXME|OPTIMIZE|HACK|REVIEW'
+      'XXX|TODO|FIXME|OPTIMIZE|HACK|REVIEW|LATER|FIXIT'
     end
 
     def self.default_punchlist_line_regexp

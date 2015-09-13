@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.authors = ['Vince Broz']
   s.description =
-    "punchlist lists your annotation comments--things like 'TODO/FIXME/HACK'"
+    "punchlist lists your annotation comments--things like 'LATER/HACK/FIXIT'"
   s.email = ['vince@broz.cc']
   s.executables = ['punchlist']
   # s.extra_rdoc_files = ["CHANGELOG", "License.txt"]
