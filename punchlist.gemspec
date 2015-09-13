@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.version = Punchlist::VERSION
 
   s.authors = ['Vince Broz']
-  s.description = 'punchlist finds the largest source files in your project ' \
-                  'and reports on them'
+  s.description =
+    "punchlist lists your annotation comments--things like 'TODO/FIXME/HACK'"
   s.email = ['vince@broz.cc']
   s.executables = ['punchlist']
   # s.extra_rdoc_files = ["CHANGELOG", "License.txt"]
