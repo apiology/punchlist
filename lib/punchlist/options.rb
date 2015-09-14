@@ -22,7 +22,7 @@ module Punchlist
 
     def parse_regexp(opts, options)
       opts.on('-r', '--regexp r',
-              'Regexp to trigger opon - default is ' \
+              'Regexp to trigger upon - default is ' \
               "#{self.class.default_punchlist_line_regexp_string}") do |v|
         options[:regexp] = v
       end

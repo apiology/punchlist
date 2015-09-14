@@ -1,14 +1,7 @@
 require_relative 'feature_helper'
 
-describe 'bigfiles' do
+describe 'punchlist' do
   # "pis" are "punchlist items"
-  #
-  # TODO: mixed_set
-  # TODO: more_than_once_source_file
-  # TODO: three_files
-  # TODO: four_files
-  # TODO: swift_and_ruby_files
-  # TODO: swift_zorb_and_ruby_files
 
   %w(mixed_types_of_source_files
      one_source_file_with_cis
@@ -42,7 +35,8 @@ describe 'bigfiles' do
     '    -e, --exclude-glob glob here     ' \
     "Files to exclude - default is none\n" \
     '    -r, --regexp r                   ' \
-    "Regexp to trigger on - default is XXX|TODO\n"
+    'Regexp to trigger upon - default is ' \
+    "XXX|TODO|FIXME|OPTIMIZE|HACK|REVIEW|LATER|FIXIT\n"
 
   it 'starts up with short help argument' do
     expect(exec_io 'punchlist -h')
