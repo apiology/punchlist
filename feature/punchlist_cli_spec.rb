@@ -30,8 +30,10 @@ describe 'punchlist' do
     '    -g, --glob glob here             ' \
     'Which files to parse - default is ' \
     '{Rakefile,Dockerfile,{*,.*}.{rb,rake,gemspec,swift,cpp,c,java,py,clj,' \
-    'cljs,scala,js,yml,sh,json},{src,app,lib,test,spec,feature}/**/{*,.*}.' \
-    "{rb,rake,gemspec,swift,cpp,c,java,py,clj,cljs,scala,js,yml,sh,json}}\n" \
+    'cljs,scala,js,yml,sh,json},{src,app,config,db,lib,test,spec,feature}/**/' \
+    '{*,.*}.{rb,rake,gemspec,swift,cpp,c,java,py,clj,cljs,scala,js,yml,' \
+    'sh,json}}' \
+    "\n" \
     '    -e, --exclude-glob glob here     ' \
     "Files to exclude - default is none\n" \
     '    -r, --regexp r                   ' \
