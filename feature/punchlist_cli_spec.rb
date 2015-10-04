@@ -1,6 +1,6 @@
 require_relative 'feature_helper'
 
-describe 'punchlist' do
+describe Punchlist do
   # "pis" are "punchlist items"
 
   %w(mixed_types_of_source_files

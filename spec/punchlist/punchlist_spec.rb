@@ -5,10 +5,10 @@ require 'punchlist'
 describe Punchlist::Punchlist do
   let_double :outputter, :globber, :file_opener, :exiter, :source_file_globber
   subject(:punchlist) do
-    Punchlist::Punchlist.new(args,
-                             outputter: outputter,
-                             file_opener: file_opener,
-                             source_file_globber: source_file_globber)
+    described_class.new(args,
+                        outputter: outputter,
+                        file_opener: file_opener,
+                        source_file_globber: source_file_globber)
   end
   subject(:args) { [] }
 
