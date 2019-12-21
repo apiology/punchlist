@@ -1,1 +1,1 @@
-lib/foo.rb:1: # XXX: need to frob the lub
+lib/foo.rb:3: # XXX: need to frob the lub
