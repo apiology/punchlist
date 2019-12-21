@@ -1,2 +1,2 @@
-lib/foo.rb:3: # XXX: need to frob the lub
 lib/bar.scala:1: println('something') // TODO: mix styles
+lib/foo.rb:3: # XXX: need to frob the lub
