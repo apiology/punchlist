@@ -5,7 +5,7 @@ require 'rspec/core/rake_task'
 require 'quality/rake/task'
 
 Quality::Rake::Task.new do |task|
-  task.skip_tools = ['reek', 'shellcheck']
+  task.skip_tools = %w[reek shellcheck]
   task.output_dir = 'metrics'
 end
 
