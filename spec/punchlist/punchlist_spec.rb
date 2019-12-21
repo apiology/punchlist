@@ -137,6 +137,7 @@ describe Punchlist::Punchlist do
                           "puts 'foo' # FUTURE change to bar\n",
             }
           end
+
           context 'and no exclusions' do
             subject(:args) { ['--glob', '**/*.rb', '--regexp', 'FUTURE'] }
             it('runs') { punchlist.run }
