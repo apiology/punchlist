@@ -1,12 +1,13 @@
+AllCops:
+  TargetRubyVersion: 2.4
+
 # I like trailing commas in maps.  They let me insert new elements and
 # see them as one line in a diff, not two.
-TrailingComma:
-  Enabled: false
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
 
-# I use keyword arguments for a poor man's dependency injection to cut
-# down on the magic in my tests.
-ParameterLists:
-  CountKeywordArgs: false
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
 
 # If i'm using one function name and returning the contents of an
 # attribute, that's OK.  The alternative would be this, which I find
@@ -14,7 +15,7 @@ ParameterLists:
 #
 # attr_reader :something_else
 # alias_method :something, :something_else
-TrivialAccessors:
+Style/TrivialAccessors:
    ExactNameMatch: true
 
 #
@@ -30,5 +31,3 @@ Style/CommentAnnotation:
     - REVIEW
     - "XX\
        X"
-
-    

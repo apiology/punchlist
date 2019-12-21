@@ -1,1 +1,1 @@
-app/foo.rb:3: puts 'foo' # XXX: change to bar
+app/foo.rb:4: puts 'foo' # XXX: change to bar
