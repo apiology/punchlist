@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'punchlist'
 
@@ -23,18 +24,18 @@ describe Punchlist::Punchlist do
     end
     def expect_globs_assigned
       allow(source_file_globber).to(receive(:source_files_glob=))
-        .with(expected_glob)
+                                .with(expected_glob)
       allow(source_file_globber).to(receive(:source_files_exclude_glob=))
-        .with(expected_exclude_glob)
+                                .with(expected_exclude_glob)
     end
     before(:each) do
       expect_globs_assigned
       allow(source_file_globber).to(receive(:source_files_arr))
-        .and_return(files_found)
+                                .and_return(files_found)
       expect(outputter).to receive(:print).with(expected_output)
       file_contents.each do |filename, contents|
         expect(file_opener).to(receive(:open)).with(filename, 'r')
-          .and_yield(StringIO.new(contents))
+                           .and_yield(StringIO.new(contents))
       end
     end
 
@@ -58,7 +59,7 @@ describe Punchlist::Punchlist do
           subject(:file_contents) do
             {
               'foo.rb' => "#\n#\n" \
-                          "puts 'foo' # XXX change to bar\n"
+                          "puts 'foo' # XXX change to bar\n",
             }
           end
           it 'runs' do
@@ -73,7 +74,7 @@ describe Punchlist::Punchlist do
           subject(:file_contents) do
             {
               'bar.scala' => "#\n#\n#\n#\n" \
-                             "println('zing') # XXX change to foo\n"
+                             "println('zing') # XXX change to foo\n",
             }
           end
           it 'runs' do
@@ -111,7 +112,7 @@ describe Punchlist::Punchlist do
           subject(:file_contents) do
             {
               'foo.rb' => "#\n#\n" \
-                          "puts 'foo' # XXX change to bar\n"
+                          "puts 'foo' # XXX change to bar\n",
             }
           end
           subject(:args) { ['--glob', '**/*.rb'] }
@@ -133,7 +134,7 @@ describe Punchlist::Punchlist do
           subject(:file_contents) do
             {
               'foo.rb' => "#\n#\n" \
-                          "puts 'foo' # FUTURE change to bar\n"
+                          "puts 'foo' # FUTURE change to bar\n",
             }
           end
           context 'and no exclusions' do

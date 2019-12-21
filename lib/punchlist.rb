@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'punchlist/options'
 
 # XXX: need to include BUG in list
