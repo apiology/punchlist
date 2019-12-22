@@ -31,7 +31,7 @@ describe Punchlist::Punchlist do
       expect_globs_assigned
       allow(source_file_globber).to(receive(:source_files_arr))
                                 .and_return(files_found)
-      expect(outputter).to receive(:print).with(expected_output)
+      allow(outputter).to receive(:print).with(expected_output)
       file_contents.each do |filename, contents|
         expect(file_opener).to(receive(:open)).with(filename, 'r')
                            .and_yield(StringIO.new(contents))
@@ -48,6 +48,7 @@ describe Punchlist::Punchlist do
         let(:expected_output) { '' }
 
         it 'runs' do
+          expect(outputter).to receive(:print).with(expected_output)
           punchlist.run
         end
       end
@@ -65,6 +66,7 @@ describe Punchlist::Punchlist do
           end
 
           it 'runs' do
+            expect(outputter).to receive(:print).with(expected_output)
             punchlist.run
           end
         end

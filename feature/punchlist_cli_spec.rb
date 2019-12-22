@@ -28,7 +28,7 @@ describe Punchlist do
     end
   end
 
-  EXPECTED_USAGE =
+  let(:expected_usage) do
     "Usage: punchlist [options]\n"\
     '    -g, --glob glob here             ' \
     'Which files to parse - default is ' \
@@ -42,15 +42,16 @@ describe Punchlist do
     '    -r, --regexp r                   ' \
     'Regexp to trigger upon - default is ' \
     "XXX|TODO|FIXME|OPTIMIZE|HACK|REVIEW|LATER|FIXIT\n"
+  end
 
   it 'starts up with short help argument' do
     expect(exec_io('punchlist -h'))
-      .to eq(EXPECTED_USAGE)
+      .to eq(expected_usage)
   end
 
   it 'starts up with long help argument' do
     expect(exec_io('punchlist --help'))
-      .to eq(EXPECTED_USAGE)
+      .to eq(expected_usage)
   end
 
   it 'starts up with invalid argument' do
