@@ -40,7 +40,7 @@ describe Punchlist::Inspector do
     context 'with one relevant line in source file' do
       let(:contents) { 'MYPL: Add some code here' }
       it 'returns one lines' do
-        should eq [[filename, 1, contents]]
+        should eq [Punchlist::Offense.new(filename, 1, contents)]
       end
     end
 
@@ -54,8 +54,8 @@ describe Punchlist::Inspector do
       let(:contents) { contents_arr.join("\n") }
       it 'returns one lines' do
         should eq [
-          [filename, 1, contents_arr[0] + "\n"], # TODO: should this be a thing?
-          [filename, 2, contents_arr[1]],
+          Punchlist::Offense.new(filename, 1, contents_arr[0] + "\n"), # TODO: should this be a thing?
+          Punchlist::Offense.new(filename, 2, contents_arr[1]),
         ]
       end
     end
