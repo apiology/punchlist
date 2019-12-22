@@ -41,7 +41,7 @@ describe Punchlist::Punchlist do
     context 'with no arguments' do
       let(:args) { [] }
 
-      context 'and no files found' do
+      context 'with no files found' do
         let(:file_contents) do
           {}
         end
@@ -52,8 +52,8 @@ describe Punchlist::Punchlist do
         end
       end
 
-      context 'and we found' do
-        context 'a ruby file' do
+      context 'with a file' do
+        context 'with ruby code inside' do
           let(:expected_output) do
             "foo.rb:3: puts 'foo' # XXX change to bar\n"
           end
@@ -69,7 +69,7 @@ describe Punchlist::Punchlist do
           end
         end
 
-        context 'a scala file' do
+        context 'with scala code inside' do
           let(:expected_output) do
             "bar.scala:5: println('zing') # XXX change to foo\n"
           end
@@ -85,7 +85,7 @@ describe Punchlist::Punchlist do
           end
         end
 
-        context 'a scala file with no entries' do
+        context 'with a scala code with no annotation comments' do
           let(:expected_output) do
             ''
           end
@@ -105,58 +105,54 @@ describe Punchlist::Punchlist do
     end
 
     context 'with glob argument excluding scala' do
-      context 'and we found' do
-        context 'a ruby and scala file' do
-          let(:expected_output) do
-            "foo.rb:3: puts 'foo' # XXX change to bar\n"
-          end
-          let(:expected_glob) do
-            '**/*.rb'
-          end
-          let(:file_contents) do
-            {
-              'foo.rb' => "#\n#\n" \
-                          "puts 'foo' # XXX change to bar\n",
-            }
-          end
-          let(:args) { ['--glob', '**/*.rb'] }
+      context 'with a ruby and scala file' do
+        let(:expected_output) do
+          "foo.rb:3: puts 'foo' # XXX change to bar\n"
+        end
+        let(:expected_glob) do
+          '**/*.rb'
+        end
+        let(:file_contents) do
+          {
+            'foo.rb' => "#\n#\n" \
+                        "puts 'foo' # XXX change to bar\n",
+          }
+        end
+        let(:args) { ['--glob', '**/*.rb'] }
 
-          it 'runs' do
-            punchlist.run
-          end
+        it 'runs' do
+          punchlist.run
         end
       end
     end
 
     context 'with regexp argument adding something' do
-      context 'and we found' do
-        context 'a ruby and scala file' do
-          let(:expected_output) do
-            "foo.rb:3: puts 'foo' # FUTURE change to bar\n"
-          end
-          let(:expected_glob) { '**/*.rb' }
-          let(:file_contents) do
-            {
-              'foo.rb' => "#\n#\n" \
-                          "puts 'foo' # FUTURE change to bar\n",
-            }
-          end
+      context 'with a ruby and scala file' do
+        let(:expected_output) do
+          "foo.rb:3: puts 'foo' # FUTURE change to bar\n"
+        end
+        let(:expected_glob) { '**/*.rb' }
+        let(:file_contents) do
+          {
+            'foo.rb' => "#\n#\n" \
+                        "puts 'foo' # FUTURE change to bar\n",
+          }
+        end
 
-          context 'and no exclusions' do
-            let(:args) { ['--glob', '**/*.rb', '--regexp', 'FUTURE'] }
+        context 'with no exclusions' do
+          let(:args) { ['--glob', '**/*.rb', '--regexp', 'FUTURE'] }
 
-            it('runs') { punchlist.run }
+          it('runs') { punchlist.run }
+        end
+
+        context 'with exclusions' do
+          let(:args) do
+            ['--glob', '**/*.rb', '--regexp', 'FUTURE',
+             '--exclude-glob', 'lib/foo/baz.rb']
           end
+          let(:expected_exclude_glob) { 'lib/foo/baz.rb' }
 
-          context 'with exclusions' do
-            let(:args) do
-              ['--glob', '**/*.rb', '--regexp', 'FUTURE',
-               '--exclude-glob', 'lib/foo/baz.rb']
-            end
-            let(:expected_exclude_glob) { 'lib/foo/baz.rb' }
-
-            it('runs') { punchlist.run }
-          end
+          it('runs') { punchlist.run }
         end
       end
     end

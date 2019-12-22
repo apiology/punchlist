@@ -53,7 +53,7 @@ describe Punchlist::Inspector do
       let(:contents) { contents_arr.join("\n") }
 
       it 'returns one lines' do
-        expect(subject).to eq [
+        expect(inspector_run_results).to eq [
           Punchlist::Offense.new(filename, 1, contents_arr[0]),
           Punchlist::Offense.new(filename, 2, contents_arr[1]),
         ]
