@@ -26,7 +26,7 @@ describe Punchlist::Punchlist do
       allow(source_file_globber).to(receive(:source_files_exclude_glob=))
                                 .with(expected_exclude_glob)
     end
-    before(:each) do
+    before do
       expect_globs_assigned
       allow(source_file_globber).to(receive(:source_files_arr))
                                 .and_return(files_found)
