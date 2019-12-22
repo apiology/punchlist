@@ -16,33 +16,31 @@ describe Punchlist::Inspector do
                         file_opener: file_opener)
   end
   let(:file) { instance_double(IO, 'file') }
+
   describe '#run' do
-    subject { inspector.run }
+    subject(:inspector_run_results) { inspector.run }
 
     before do
-      expect(file_opener).to(receive(:open)).with(filename, 'r')
-                         .and_yield(StringIO.new(contents))
+      allow(file_opener).to(receive(:open)).with(filename, 'r')
+                        .and_yield(StringIO.new(contents))
     end
 
     context 'with no lines in source file' do
       let(:contents) { '' }
-      it 'returns no lines' do
-        should eq []
-      end
+
+      it { is_expected.to eq [] }
     end
 
     context 'with one irrelevant line in line in source file' do
       let(:contents) { 'foo' }
-      it 'returns no lines' do
-        should eq []
-      end
+
+      it { is_expected.to eq [] }
     end
 
     context 'with one relevant line in source file' do
       let(:contents) { 'MYPL: Add some code here' }
-      it 'returns one lines' do
-        should eq [Punchlist::Offense.new(filename, 1, contents)]
-      end
+
+      it { is_expected.to eq [Punchlist::Offense.new(filename, 1, contents)] }
     end
 
     context 'with two relevant lines in source file' do
@@ -53,8 +51,9 @@ describe Punchlist::Inspector do
         ]
       end
       let(:contents) { contents_arr.join("\n") }
+
       it 'returns one lines' do
-        should eq [
+        expect(subject).to eq [
           Punchlist::Offense.new(filename, 1, contents_arr[0]),
           Punchlist::Offense.new(filename, 2, contents_arr[1]),
         ]
