@@ -6,7 +6,6 @@ require_relative 'punchlist/renderer'
 
 # XXX: need to include BUG in list
 # XXX: need to include BUG in my rubocop config
-# BUG need to fix the fact that we create blank lines on files with no issues
 module Punchlist
   # Counts the number of 'todo' comments in your code.
   class Punchlist
