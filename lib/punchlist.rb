@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'punchlist/options'
+require_relative 'punchlist/inspector'
 
 # XXX: need to include BUG in list
 # XXX: need to include BUG in my rubocop config
@@ -58,15 +59,8 @@ module Punchlist
     end
 
     def look_for_punchlist_items(filename)
-      lines = []
-      line_num = 0
-      @file_opener.open(filename, 'r') do |file|
-        file.each_line do |line|
-          line_num += 1
-          lines << [filename, line_num, line] if line =~ punchlist_line_regexp
-        end
-      end
-      lines
+      Inspector.new(punchlist_line_regexp, filename,
+                    file_opener: @file_opener).run
     end
 
     def render(output)
