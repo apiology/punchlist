@@ -19,10 +19,7 @@ describe Punchlist::Punchlist do
       '{app,lib,test,spec,feature}/**/' \
       '*.{rb,swift,scala,js,cpp,c,java,py}'
     end
-    let(:expected_exclude_glob) do
-      nil
-    end
-
+    let(:expected_exclude_glob) { nil }
     def expect_globs_assigned
       allow(source_file_globber).to(receive(:source_files_glob=))
                                 .with(expected_glob)
