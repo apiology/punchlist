@@ -33,7 +33,7 @@ module Punchlist
         file.each_line do |line|
           line_num += 1
           if line =~ punchlist_line_regexp
-            lines << Offense.new(filename, line_num, line)
+            lines << Offense.new(filename, line_num, line.chomp)
           end
         end
       end

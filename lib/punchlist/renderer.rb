@@ -5,7 +5,12 @@ module Punchlist
       lines = output.map do |offense|
         "#{offense.filename}:#{offense.line_num}: #{offense.line}"
       end
-      lines.join
+      out = lines.join("\n")
+      if out.empty?
+        out
+      else
+        out + "\n"
+      end
     end
   end
 end
