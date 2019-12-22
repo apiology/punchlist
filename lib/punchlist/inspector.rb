@@ -1,4 +1,6 @@
 module Punchlist
+  # TODO: Move this to new file
+  # Represents a discovered punchlist item in code
   class Offense
     attr_reader :filename, :line_num, :line
     def initialize(filename, line_num, line)
