@@ -65,7 +65,6 @@ module Punchlist
     end
 
     def render(output)
-      # TODO: Output should probably be a class
       CliRenderer.new.render(output)
     end
   end
