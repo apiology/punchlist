@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Punchlist
   # Render a text format of offenses
   class CliRenderer

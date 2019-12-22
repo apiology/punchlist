@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Punchlist
   # Represents a discovered punchlist item in code
   class Offense
