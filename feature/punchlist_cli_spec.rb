@@ -57,5 +57,5 @@ describe Punchlist do
       .to match(/invalid option/)
   end
 
-  # TODO: handle passing in different annotation comments
+  xit 'handles passing in different annotation comments'
 end
