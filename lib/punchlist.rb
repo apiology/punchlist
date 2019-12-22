@@ -2,6 +2,7 @@
 
 require_relative 'punchlist/options'
 require_relative 'punchlist/inspector'
+require_relative 'punchlist/renderer'
 
 # XXX: need to include BUG in list
 # XXX: need to include BUG in my rubocop config
@@ -64,10 +65,8 @@ module Punchlist
     end
 
     def render(output)
-      lines = output.map do |filename, line_num, line|
-        "#{filename}:#{line_num}: #{line}"
-      end
-      lines.join
+      # TODO: Output should probably be a class
+      CliRenderer.new.render(output)
     end
   end
 end
