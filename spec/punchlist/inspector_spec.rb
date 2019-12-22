@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 require 'punchlist'
+require 'punchlist/offense'
 
 describe Punchlist::Inspector do
   let(:file_opener) do
