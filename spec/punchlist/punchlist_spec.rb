@@ -146,6 +146,7 @@ describe Punchlist::Punchlist do
 
             it('runs') { punchlist.run }
           end
+
           context 'with exclusions' do
             let(:args) do
               ['--glob', '**/*.rb', '--regexp', 'FUTURE',
