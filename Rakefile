@@ -7,6 +7,8 @@ require 'quality/rake/task'
 Quality::Rake::Task.new do |task|
   task.skip_tools = %w[reek shellcheck]
   task.output_dir = 'metrics'
+  # Add 'xit ' to the standard list, finding disabled tests
+  task.punchlist_regexp = 'XXX|TODO|FIXME|OPTIMIZE|HACK|REVIEW|LATER|FIXIT|xit '
 end
 
 desc 'Run specs'
