@@ -5,7 +5,7 @@ require 'source_finder/option_parser'
 
 module Punchlist
   # Parse command line options
-  class Options
+  class OptionParser
     attr_reader :default_punchlist_line_regexp
 
     def initialize(args,
@@ -38,9 +38,9 @@ module Punchlist
       options
     end
 
-    def parse_options
+    def generate_config
       options = nil
-      OptionParser.new do |opts|
+      ::OptionParser.new do |opts|
         options = setup_options(opts)
       end.parse!(@args)
       options

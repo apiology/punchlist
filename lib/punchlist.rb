@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'punchlist/options'
+require_relative 'punchlist/option_parser'
 require_relative 'punchlist/inspector'
 require_relative 'punchlist/renderer'
 
@@ -12,18 +12,15 @@ module Punchlist
     def initialize(args,
                    outputter: STDOUT,
                    file_opener: File,
-                   options_parser: Options.new(args),
+                   option_parser_class: OptionParser,
                    source_file_globber: SourceFinder::SourceFileGlobber.new)
-      @args = args
+      @config = option_parser_class.new(args).generate_config
       @outputter = outputter
       @file_opener = file_opener
-      @options_parser = options_parser
       @source_file_globber = source_file_globber
     end
 
     def run
-      @options = @options_parser.parse_options
-
       analyze_files
 
       0
@@ -38,11 +35,9 @@ module Punchlist
     end
 
     def source_files
-      if @options[:glob]
-        @source_file_globber.source_files_glob = @options[:glob]
-      end
-      if @options[:exclude]
-        @source_file_globber.source_files_exclude_glob = @options[:exclude]
+      @source_file_globber.source_files_glob = @config[:glob] if @config[:glob]
+      if @config[:exclude]
+        @source_file_globber.source_files_exclude_glob = @config[:exclude]
       end
       @source_file_globber.source_files_arr
     end
@@ -50,11 +45,11 @@ module Punchlist
     def punchlist_line_regexp
       return @regexp if @regexp
 
-      regexp_string = @options[:regexp]
+      regexp_string = @config[:regexp]
       if regexp_string
         @regexp = Regexp.new(regexp_string)
       else
-        Options.default_punchlist_line_regexp
+        OptionParser.default_punchlist_line_regexp
       end
     end
 
