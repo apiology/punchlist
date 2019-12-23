@@ -6,7 +6,7 @@ module Punchlist
   # Inspects files for punchlist items
   class Inspector
     attr_reader :punchlist_line_regexp, :filename
-    def initialize(punchlist_line_regexp, filename, file_opener:)
+    def initialize(punchlist_line_regexp, filename, file_opener: File)
       @file_opener = file_opener
       @punchlist_line_regexp = punchlist_line_regexp
       @filename = filename

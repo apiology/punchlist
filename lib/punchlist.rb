@@ -11,13 +11,11 @@ module Punchlist
   class Punchlist
     def initialize(args,
                    outputter: STDOUT,
-                   file_opener: File,
                    option_parser_class: OptionParser,
                    source_file_globber: SourceFinder::SourceFileGlobber.new)
-      @config = option_parser_class.new(args)
-                                   .generate_config(source_file_globber)
+      option_parser = option_parser_class.new(args)
+      @config = option_parser.generate_config(source_file_globber)
       @outputter = outputter
-      @file_opener = file_opener
     end
 
     def run
@@ -35,8 +33,7 @@ module Punchlist
     end
 
     def look_for_punchlist_items(filename)
-      Inspector.new(@config.regexp, filename,
-                    file_opener: @file_opener).run
+      Inspector.new(@config.regexp, filename).run
     end
 
     def render(output)
