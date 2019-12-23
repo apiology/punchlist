@@ -35,9 +35,9 @@ module Punchlist
     end
 
     def source_files
-      @source_file_globber.source_files_glob = @config[:glob] if @config[:glob]
-      if @config[:exclude]
-        @source_file_globber.source_files_exclude_glob = @config[:exclude]
+      @source_file_globber.source_files_glob = @config.glob if @config.glob
+      if @config.exclude
+        @source_file_globber.source_files_exclude_glob = @config.exclude
       end
       @source_file_globber.source_files_arr
     end
@@ -45,7 +45,7 @@ module Punchlist
     def punchlist_line_regexp
       return @regexp if @regexp
 
-      regexp_string = @config[:regexp]
+      regexp_string = @config.regexp
       if regexp_string
         @regexp = Regexp.new(regexp_string)
       else

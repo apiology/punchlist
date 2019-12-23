@@ -2,6 +2,7 @@
 
 require 'optparse'
 require 'source_finder/option_parser'
+require_relative 'config'
 
 module Punchlist
   # Parse command line options
@@ -43,7 +44,7 @@ module Punchlist
       ::OptionParser.new do |opts|
         options = setup_options(opts)
       end.parse!(@args)
-      options
+      Config.new(**options)
     end
   end
 end

@@ -10,20 +10,22 @@ module Punchlist
       @file_opener = file_opener
       @punchlist_line_regexp = punchlist_line_regexp
       @filename = filename
+      @lines = []
+      @line_num = 0
+    end
+
+    def inspect_line(line)
+      @line_num += 1
+      return unless line =~ punchlist_line_regexp
+
+      @lines << Offense.new(filename, @line_num, line.chomp)
     end
 
     def run
-      lines = []
-      line_num = 0
       @file_opener.open(filename, 'r') do |file|
-        file.each_line do |line|
-          line_num += 1
-          if line =~ punchlist_line_regexp
-            lines << Offense.new(filename, line_num, line.chomp)
-          end
-        end
+        file.each_line { |line| inspect_line(line) }
       end
-      lines
+      @lines
     end
   end
 end
