@@ -31,12 +31,12 @@ module Punchlist
       options
     end
 
-    def generate_config
+    def generate_config(source_file_globber)
       options = nil
       ::OptionParser.new do |opts|
         options = setup_options(opts)
       end.parse!(@args)
-      Config.new(**options)
+      Config.new(**options, source_file_globber: source_file_globber)
     end
   end
 end

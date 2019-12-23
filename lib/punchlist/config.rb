@@ -9,11 +9,19 @@ module Punchlist
       'XXX|TODO|FIXME|OPTIMIZE|HACK|REVIEW|LATER|FIXIT'
     end
 
-    def initialize(regexp: nil, glob: nil, exclude: nil)
+    def source_files
+      @source_file_globber.source_files_glob = glob if glob
+      @source_file_globber.source_files_exclude_glob = exclude if exclude
+      @source_file_globber.source_files_arr
+    end
+
+    def initialize(regexp: nil, glob: nil, exclude: nil,
+                   source_file_globber:)
       @regexp = Regexp.new(regexp ||
                            Config.default_punchlist_line_regexp_string)
       @glob = glob
       @exclude = exclude
+      @source_file_globber = source_file_globber
     end
   end
 end

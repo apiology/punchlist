@@ -14,10 +14,10 @@ module Punchlist
                    file_opener: File,
                    option_parser_class: OptionParser,
                    source_file_globber: SourceFinder::SourceFileGlobber.new)
-      @config = option_parser_class.new(args).generate_config
+      @config = option_parser_class.new(args)
+                                   .generate_config(source_file_globber)
       @outputter = outputter
       @file_opener = file_opener
-      @source_file_globber = source_file_globber
     end
 
     def run
@@ -28,18 +28,10 @@ module Punchlist
 
     def analyze_files
       all_output = []
-      source_files.each do |filename|
+      @config.source_files.each do |filename|
         all_output.concat(look_for_punchlist_items(filename))
       end
       @outputter.print render(all_output)
-    end
-
-    def source_files
-      @source_file_globber.source_files_glob = @config.glob if @config.glob
-      if @config.exclude
-        @source_file_globber.source_files_exclude_glob = @config.exclude
-      end
-      @source_file_globber.source_files_arr
     end
 
     def look_for_punchlist_items(filename)
