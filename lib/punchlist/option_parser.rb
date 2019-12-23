@@ -15,18 +15,10 @@ module Punchlist
       @source_finder_option_parser = source_finder_option_parser
     end
 
-    def self.default_punchlist_line_regexp_string
-      'XXX|TODO|FIXME|OPTIMIZE|HACK|REVIEW|LATER|FIXIT'
-    end
-
-    def self.default_punchlist_line_regexp
-      Regexp.new(default_punchlist_line_regexp_string)
-    end
-
     def parse_regexp(opts, options)
       opts.on('-r', '--regexp r',
               'Regexp to trigger upon - default is ' \
-              "#{self.class.default_punchlist_line_regexp_string}") do |v|
+              "#{Config.default_punchlist_line_regexp_string}") do |v|
         options[:regexp] = v
       end
     end

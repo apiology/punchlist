@@ -42,19 +42,8 @@ module Punchlist
       @source_file_globber.source_files_arr
     end
 
-    def punchlist_line_regexp
-      return @regexp if @regexp
-
-      regexp_string = @config.regexp
-      if regexp_string
-        @regexp = Regexp.new(regexp_string)
-      else
-        OptionParser.default_punchlist_line_regexp
-      end
-    end
-
     def look_for_punchlist_items(filename)
-      Inspector.new(punchlist_line_regexp, filename,
+      Inspector.new(@config.regexp, filename,
                     file_opener: @file_opener).run
     end
 
