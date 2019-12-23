@@ -17,9 +17,3 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
-
-def let_double(*doubles)
-  doubles.each do |double_sym|
-    let(double_sym) { double(double_sym.to_s) }
-  end
-end

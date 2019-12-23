@@ -4,7 +4,11 @@ require 'spec_helper'
 require 'punchlist'
 
 describe Punchlist::Punchlist do
-  let_double :outputter, :globber, :file_opener, :exiter, :source_file_globber
+  let(:outputter) { object_double(STDOUT, 'outputter') }
+  let(:file_opener) { class_double(File, 'file_opener') }
+  let(:source_file_globber) do
+    instance_double(SourceFinder::SourceFileGlobber, 'source_file_globber')
+  end
   let(:punchlist) do
     described_class.new(args,
                         outputter: outputter,
