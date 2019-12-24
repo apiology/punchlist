@@ -2,10 +2,11 @@
 
 require 'optparse'
 require 'source_finder/option_parser'
+require_relative 'config'
 
 module Punchlist
   # Parse command line options
-  class Options
+  class OptionParser
     attr_reader :default_punchlist_line_regexp
 
     def initialize(args,
@@ -14,18 +15,10 @@ module Punchlist
       @source_finder_option_parser = source_finder_option_parser
     end
 
-    def self.default_punchlist_line_regexp_string
-      'XXX|TODO|FIXME|OPTIMIZE|HACK|REVIEW|LATER|FIXIT'
-    end
-
-    def self.default_punchlist_line_regexp
-      Regexp.new(default_punchlist_line_regexp_string)
-    end
-
     def parse_regexp(opts, options)
       opts.on('-r', '--regexp r',
               'Regexp to trigger upon - default is ' \
-              "#{self.class.default_punchlist_line_regexp_string}") do |v|
+              "#{Config.default_punchlist_line_regexp_string}") do |v|
         options[:regexp] = v
       end
     end
@@ -38,12 +31,12 @@ module Punchlist
       options
     end
 
-    def parse_options
+    def generate_config(source_file_globber)
       options = nil
-      OptionParser.new do |opts|
+      ::OptionParser.new do |opts|
         options = setup_options(opts)
       end.parse!(@args)
-      options
+      Config.new(**options, source_file_globber: source_file_globber)
     end
   end
 end

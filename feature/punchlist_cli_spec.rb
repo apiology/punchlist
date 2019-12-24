@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'feature_helper'
+require 'punchlist'
 
 describe Punchlist do
   # "pis" are "punchlist items"
@@ -27,7 +28,7 @@ describe Punchlist do
     end
   end
 
-  EXPECTED_USAGE =
+  let(:expected_usage) do
     "Usage: punchlist [options]\n"\
     '    -g, --glob glob here             ' \
     'Which files to parse - default is ' \
@@ -41,15 +42,16 @@ describe Punchlist do
     '    -r, --regexp r                   ' \
     'Regexp to trigger upon - default is ' \
     "XXX|TODO|FIXME|OPTIMIZE|HACK|REVIEW|LATER|FIXIT\n"
+  end
 
   it 'starts up with short help argument' do
     expect(exec_io('punchlist -h'))
-      .to eq(EXPECTED_USAGE)
+      .to eq(expected_usage)
   end
 
   it 'starts up with long help argument' do
     expect(exec_io('punchlist --help'))
-      .to eq(EXPECTED_USAGE)
+      .to eq(expected_usage)
   end
 
   it 'starts up with invalid argument' do
@@ -57,5 +59,5 @@ describe Punchlist do
       .to match(/invalid option/)
   end
 
-  # TODO: handle passing in different annotation comments
+  xit 'handles passing in different annotation comments'
 end
