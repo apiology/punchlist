@@ -1,6 +1,7 @@
 *~
 \#*\#
 /coverage/.resultset.json
+/coverage/.resultset.json.lock
 /coverage/assets/
 /coverage/index.html
 /pkg
