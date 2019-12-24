@@ -4,14 +4,6 @@ require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 require 'quality/rake/task'
 
-# Dear package maintainers,
-#
-# I really don't care that some rando package I use is using another
-# rando package that is deprecating some minor thing.  I'm busy enough
-# cleaning up after your actual breakage to worry about future
-# warnings that I can't do anything about.
-ENV['RUBYOPT'] = '-W0' # turn down the volume
-
 task :pronto do
   formatter = '-f github_pr' if ENV.key? 'PRONTO_GITHUB_ACCESS_TOKEN'
   if ENV.key? 'TRAVIS_PULL_REQUEST'
