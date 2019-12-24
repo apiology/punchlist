@@ -45,11 +45,7 @@ task :clear_metrics do |_t|
   raise unless ret
 end
 
-task :debug do
-  sh 'bundle exec punchlist .'
-end
-
 desc 'Default: Run specs and check quality.'
-task localtest: %i[clear_metrics debug spec feature quality]
+task localtest: %i[clear_metrics spec feature quality]
 task test: %i[spec feature]
 task default: [:localtest]
