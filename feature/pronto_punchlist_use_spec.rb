@@ -7,7 +7,9 @@ require 'punchlist/offense'
 # Example use from https://github.com/apiology/pronto-punchlist
 
 describe Punchlist do
-  subject(:offenses) { ::Punchlist::Inspector.new(punchlist_line_regexp, path).run }
+  subject(:offenses) do
+    ::Punchlist::Inspector.new(punchlist_line_regexp, path).run
+  end
 
   let(:punchlist_line_regexp) do
     Regexp.new(::Punchlist::Config.default_punchlist_line_regexp_string)
