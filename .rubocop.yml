@@ -41,6 +41,18 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
     - 'feature/**/*.rb'
 
+# http://www.betterspecs.org/#single
+#
+# > in tests that are not isolated (e.g. ones that integrate with a
+# > DB, an external webservice, or end-to-end-tests), you take a
+# > massive performance hit to do the same setup over and over again,
+# > just to set a different expectation in each test. In these sorts
+# > of slower tests, I think it's fine to specify more than one
+# > isolated behavior.
+RSpec/MultipleExpectations:
+  Exclude:
+    - 'feature/**/*.rb'
+
 AllCops:
   TargetRubyVersion: 2.4
 
