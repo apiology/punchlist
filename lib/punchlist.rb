@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'punchlist/version'
 require_relative 'punchlist/option_parser'
 require_relative 'punchlist/inspector'
 require_relative 'punchlist/renderer'
