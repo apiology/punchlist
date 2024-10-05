@@ -134,52 +134,6 @@ Style/TrailingCommaInHashLiteral:
 # attr_reader :something_else
 # alias_method :something, :something_else
 Style/TrivialAccessors:
-<<<<<<< HEAD
-   ExactNameMatch: true
-
-#
-# Add 'XX X' to the standard list
-#
-Style/CommentAnnotation:
-   Keywords:
-    - "TOD\
-       O"
-    - "FIXM\
-       E"
-    - "OPTIMIZ\
-       E"
-    - "HAC\
-       K"
-    - "REVIE\
-       W"
-    - "XX\
-       X"
-
-# https://stackoverflow.com/questions/40934345/rubocop-25-line-block-size-and-rspec-tests
-Metrics/BlockLength:
-  Exclude:
-    - 'Rakefile'
-    - '**/*.rake'
-    - 'spec/**/*.rb'
-    - 'feature/**/*.rb'
-
-# http://www.betterspecs.org/#single
-#
-# > in tests that are not isolated (e.g. ones that integrate with a
-# > DB, an external webservice, or end-to-end-tests), you take a
-# > massive performance hit to do the same setup over and over again,
-# > just to set a different expectation in each test. In these sorts
-# > of slower tests, I think it's fine to specify more than one
-# > isolated behavior.
-RSpec/MultipleExpectations:
-  Exclude:
-    - 'feature/**/*.rb'
-
-AllCops:
-  TargetRubyVersion: 2.4
-
-require: rubocop-rspec
-=======
   ExactNameMatch: true
 
 AllCops:
@@ -192,4 +146,3 @@ AllCops:
 require:
   - rubocop-rake
   - rubocop-rspec
->>>>>>> cookiecutter-template
