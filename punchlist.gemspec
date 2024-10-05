@@ -1,40 +1,30 @@
-# ; -*-Ruby-*-
+# coding: ascii
 # frozen_string_literal: true
 
-$LOAD_PATH.push File.join(File.dirname(__FILE__), 'lib')
+lib = File.expand_path('lib', __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'punchlist/version'
 
-Gem::Specification.new do |s|
-  s.name = 'punchlist'
-  s.version = Punchlist::VERSION
+Gem::Specification.new do |spec|
+  spec.name          = 'punchlist'
+  spec.version       = Punchlist::VERSION
+  spec.authors       = ["Vince Broz"]
+  spec.email         = ['vince@broz.cc']
+  spec.summary       = "Counts the number of 'todo' comments in your code"
+  spec.homepage      = 'https://github.com/apiology/punchlist'
+  spec.license       = 'MIT license'
+  spec.required_ruby_version = '>= 3.0'
 
-  s.authors = ['Vince Broz']
-  s.description =
-    "punchlist lists your annotation comments--things like 'LATER/HACK/FIXIT'"
-  s.email = ['vince@broz.cc']
-  s.executables = ['punchlist']
-  # s.extra_rdoc_files = ["CHANGELOG", "License.txt"]
-  s.license = 'MIT'
-  s.files = Dir['License.txt', 'README.md',
-                'Rakefile',
-                'bin/punchlist',
-                '{lib}/**/*',
-                'punchlist.gemspec'] & `git ls-files -z`.split("\0")
-  # s.rdoc_options = ["--main", "README.md"]
-  s.require_paths = ['lib']
-  s.homepage = 'http://github.com/apiology/punchlist'
-  # s.rubyforge_project = %q{punchlist}
-  s.rubygems_version = '1.3.6'
-  s.summary = 'Finds largest source files in a project'
+  spec.files = Dir.chdir(File.expand_path(__dir__)) do
+    `git ls-files -z`.split("\x0").reject do |f|
+      f.match(%r{^(test|spec|features)/})
+    end
+  end
+  spec.bindir        = 'exe'
+  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.require_paths = ['lib']
 
-  s.add_dependency('source_finder', ['>=2'])
-
-  s.add_development_dependency('bundler')
-  s.add_development_dependency('overcommit', ['>=0.61.0', '<0.62.0'])
-  s.add_development_dependency('pronto')
-  s.add_development_dependency('pronto-rubocop')
-  s.add_development_dependency('quality', ['~> 36'])
-  s.add_development_dependency('rake')
-  s.add_development_dependency('rspec')
-  s.add_development_dependency('simplecov')
+  spec.metadata = {
+    'rubygems_mfa_required' => 'true',
+  }
 end
