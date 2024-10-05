@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-require 'punchlist/version'
+rule 'MD029', style: 'ordered'

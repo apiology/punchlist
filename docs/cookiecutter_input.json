@@ -1,0 +1,16 @@
+{
+    "_checkout": null,
+    "_output_dir": "/Users/broz/src/punchlist/.git/cookiecutter",
+    "_repo_dir": "/Users/broz/src/cookiecutter-gem",
+    "_template": "/Users/broz/src/cookiecutter-gem",
+    "email": "vince@broz.cc",
+    "full_name": "Vince Broz",
+    "github_username": "apiology",
+    "module_name": "Punchlist",
+    "open_source_license": "MIT license",
+    "project_name": "Punchlist",
+    "project_short_description": "Counts the number of 'todo' comments in your code",
+    "project_slug": "punchlist",
+    "type_of_github_repo": "public",
+    "version": "1.3.6"
+}

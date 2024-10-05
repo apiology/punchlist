@@ -1,7 +1,0 @@
-Counts the number of 'todo' comments in your code.
-
-To test quality:
-  rake localtest
-
-To run tests alone:
-  rake spec
