@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency('source_finder', ['>=2'])
 
   s.add_development_dependency('bundler')
+  s.add_development_dependency('overcommit', ['>=0.61.0', '<0.62.0'])
   s.add_development_dependency('pronto')
   s.add_development_dependency('pronto-rubocop')
   s.add_development_dependency('quality', ['~> 36'])
